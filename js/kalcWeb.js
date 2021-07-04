@@ -1,81 +1,54 @@
-console.log("Teste Calculadora");
+// teclas 
+const keys = document.querySelectorAll(".buttons .numbers button:not(#clear)")
+const clear = document.querySelector("#clear")
 
-//DOM
+const ops = document.querySelectorAll(".buttons .operators button")
 
-// document.write("Boa tarde");
 
-//Operações 
-const igual = document.getElementById("igual");
-const divisao = document.getElementById("divisao");
-const multiplicacao = document.getElementById("multiplicacao");
-const subtracao = document.getElementById("subtracao");
-const adicao = document.getElementById("adicao");
+//visor
+const screen = document.querySelector(".screen")
 
-// Numeros
-const quatro = document.getElementById("quatro");
 
-console.log(igual);
-console.log(quatro);
-console.log(nove);
+// eventos teclas
 
-//Eventos Operações
- igual.onclick = function() {
-    console.log(igual.innerText);
- };
+keys.forEach(function (key){
+    key.addEventListener("click", function (){
+         const keyValue = key.getAttribute("data-val")
+         insertValue(keyValue)
+    })
+})
 
- divisao.onclick = function() {
-    console.log(divisao.innerText);
- };
+// eventos operações
 
- multiplicacao.onclick = function() {
-    console.log(multiplicacao.innerText);
- };
+ops.forEach(function (op){
+    op.addEventListener("click", function (){
+        if (op.innerText == "="){
+            showResult(screen.innerText)
+        }else{
+            const opValue = op.getAttribute("data-val")
+        insertValue(opValue)
+        }
+        
+    })
+})
 
- subtracao.onclick = function() {
-    console.log(subtracao.innerText);
- };
+clear.addEventListener("click", function (){
+    screen.innerText = "0"
+})
 
- adicao.onclick = function() {
-    console.log(adicao.innerText);
- };
- 
- 
- //Eventos Números
- nove.onclick = function(){
-    console.log(nove.innerText);
- };
- oito.onclick = function(){
-    console.log(oito.innerText);
- };
- sete.onclick = function(){
-    console.log(sete.innerText);
- };
- seis.onclick = function(){
-    console.log(seis.innerText);
- };
- cinco.onclick = function(){
-    console.log(cinco.innerText);
- };
- quatro.onclick = function(){
-    console.log(quatro.innerText);
- };
- tres.onclick = function(){
-    console.log(tres.innerText);
- };
- dois.onclick = function(){
-    console.log(dois.innerText);
- };
- um.onclick = function(){
-    console.log(um.innerText);
- };
- zero.onclick = function(){
-    console.log(zero.innerText);
- };
+//inserir operação
+const insertValue = function (value){
+    if (screen.innerText.length > 13) {
+        return
+    }else if(screen.innerText == 0){
+        screen.innerText = ""
+    }
+        screen.innerText = screen.innerText + value
+    
+}
 
- ponto.onclick = function(){
-    console.log(ponto.innerText);
- };
+//executar operação
 
- clear.onclick = function(){
-    console.log(clear.innerText);
- };
+const showResult= function (operation){
+    screen.innerText = eval(operation)
+}
